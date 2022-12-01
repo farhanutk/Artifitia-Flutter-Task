@@ -1,4 +1,6 @@
+import 'package:artifitia_flutter_task/services/database_services.dart';
 import 'package:artifitia_flutter_task/styles/spacing.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../styles/colors.dart';
@@ -84,49 +86,37 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: largeSectionTitleStyle(),
                 ),
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Container(
-                  margin: const EdgeInsets.fromLTRB(30, 7, 30, 17),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 17),
-                        child: CourseCard(
-                            courseName: 'Flutter : Masterclass',
-                            authorName: 'Mithun Raj',
-                            priceInRupees: '10,000',
-                            isBestSeller: true,
-                            thumbnailUrl: 'assets/images/flutter.png',
-                            onBookmarkTap: () {},
-                            onEnrollTap: () {}),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 17),
-                        child: CourseCard(
-                            courseName: 'Flutter : Masterclass',
-                            authorName: 'Mithun Raj',
-                            priceInRupees: '10,000',
-                            isBestSeller: true,
-                            thumbnailUrl: 'assets/images/flutter.png',
-                            onBookmarkTap: () {},
-                            onEnrollTap: () {}),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 17),
-                        child: CourseCard(
-                            courseName: 'Flutter : Masterclass',
-                            authorName: 'Mithun Raj',
-                            priceInRupees: '10,000',
-                            isBestSeller: true,
-                            thumbnailUrl: 'assets/images/flutter.png',
-                            onBookmarkTap: () {},
-                            onEnrollTap: () {}),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              FutureBuilder(
+                  future: getCourses(),
+                  builder: (context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      final List courses = snapshot.data;
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Container(
+                          margin: const EdgeInsets.fromLTRB(30, 7, 30, 17),
+                          child: Row(
+                            children: courses
+                                .map(
+                                  (course) => Padding(
+                                    padding: const EdgeInsets.only(right: 17),
+                                    child: CourseCard(
+                                        courseName: course["courseName"],
+                                        authorName: course["authorName"],
+                                        priceInRupees: course["priceInRupees"],
+                                        isBestSeller: course["isBestSeller"],
+                                        thumbnailUrl: course["thumbnailUrl"],
+                                        onBookmarkTap: () {},
+                                        onEnrollTap: () {}),
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        ),
+                      );
+                    }
+                    return Center(child: CircularProgressIndicator());
+                  }),
               Padding(
                 padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
                 child: Row(

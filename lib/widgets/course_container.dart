@@ -38,7 +38,7 @@ class CourseCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset(
+              Image.network(
                 thumbnailUrl,
                 width: 250,
               ),

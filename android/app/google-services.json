@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "365634420429",
+    "project_id": "artifitia-flutter-task",
+    "storage_bucket": "artifitia-flutter-task.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365634420429:android:a4949e3717a117564a7384",
+        "android_client_info": {
+          "package_name": "com.example.artifitia_flutter_task"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "365634420429-lo4fg58p8d44bgvotltukls916akd1pd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDigNfjoKa_YGygSncGcHUw6OnG1kuosn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "365634420429-lo4fg58p8d44bgvotltukls916akd1pd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
