@@ -1,3 +1,3 @@
 # Artifitia Flutter Task
 
-UI design and Firebase Intergration completed.
+UI development and Firebase intergration completed.

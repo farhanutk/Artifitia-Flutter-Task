@@ -8,7 +8,6 @@ Future<List> getCourses() async {
 
   final response = await firestore.get();
   List data = response.docs.map((doc) => doc.data()).toList();
-  print(data);
 
   return data;
 }

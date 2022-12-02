@@ -139,7 +139,7 @@ class CourseCard extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                           borderRadius: buttonBorderRadius)),
                   onPressed: onEnrollTap,
-                  child: Text(
+                  child: const Text(
                     'Enroll',
                     style: TextStyle(
                         color: Colors.white,

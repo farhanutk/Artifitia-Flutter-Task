@@ -1,6 +1,5 @@
 import 'package:artifitia_flutter_task/services/database_services.dart';
 import 'package:artifitia_flutter_task/styles/spacing.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../styles/colors.dart';
@@ -15,9 +14,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  //nav items
-  final List<Widget> _navItems = [];
+  //nav items (to be used later when multiple screens are there)
+  // final List<Widget> _navItems = [];
+
   int _selectedIndex = 0;
+
   void _onTap(index) {
     setState(() {
       _selectedIndex = index;
@@ -43,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   decoration: BoxDecoration(
                       color: primaryColor, borderRadius: mainBorderRadius),
                   height: 140,
-                  width: double.infinity,
+                  width: MediaQuery.of(context).size.width,
                 ),
                 Padding(
                   padding:
@@ -115,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       );
                     }
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }),
               Padding(
                 padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
