@@ -25,7 +25,7 @@ TextStyle cardTitleStyle(Color color) {
 }
 
 TextStyle cardSubtitleStyle(Color color) {
-  return TextStyle(fontSize: 15, color: color);
+  return TextStyle(fontSize: 14, color: color);
 }
 
 TextStyle cardPriceStyle() {

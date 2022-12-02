@@ -13,7 +13,8 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   //nav items (to be used later when multiple screens are there)
   // final List<Widget> _navItems = [];
 
@@ -23,6 +24,23 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  // for slide animation
+  late AnimationController _animationController;
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 500));
+    _animationController.forward();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -38,48 +56,53 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: sectionPadding,
                 child: Text('Learn and Evolve', style: mainTitleStyle()),
               ),
-              Stack(alignment: Alignment.bottomLeft, children: [
-                Container(
-                  margin: sectionPadding,
-                  decoration: BoxDecoration(
-                      color: primaryColor, borderRadius: mainBorderRadius),
-                  height: 140,
-                  width: MediaQuery.of(context).size.width,
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 30, bottom: 10, right: 30),
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        'assets/images/asif.png',
-                        height: 160,
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Become Master in Data Science',
-                                style: mediumSectionTitleStyle(Colors.white),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                'By Asif Abduraheem',
-                                style: cardSubtitleStyle(Colors.white),
-                              ),
-                            ],
+              SlideTransition(
+                position:
+                    Tween<Offset>(begin: const Offset(-1, 0), end: Offset.zero)
+                        .animate(_animationController),
+                child: Stack(alignment: Alignment.bottomLeft, children: [
+                  Container(
+                    margin: sectionPadding,
+                    decoration: BoxDecoration(
+                        color: primaryColor, borderRadius: mainBorderRadius),
+                    height: 140,
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 30, bottom: 10, right: 30),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          'assets/images/asif.png',
+                          height: 160,
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(20, 20, 10, 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Become Master in Data Science',
+                                  style: mediumSectionTitleStyle(Colors.white),
+                                ),
+                                const SizedBox(
+                                  height: 7,
+                                ),
+                                Text(
+                                  'By Asif Abduraheem',
+                                  style: cardSubtitleStyle(Colors.white),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ]),
+                ]),
+              ),
               Padding(
                 padding: sectionPadding,
                 child: Text(
@@ -92,26 +115,32 @@ class _HomeScreenState extends State<HomeScreen> {
                   builder: (context, AsyncSnapshot snapshot) {
                     if (snapshot.hasData) {
                       final List courses = snapshot.data;
-                      return SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Container(
-                          margin: const EdgeInsets.fromLTRB(30, 7, 30, 17),
-                          child: Row(
-                            children: courses
-                                .map(
-                                  (course) => Padding(
-                                    padding: const EdgeInsets.only(right: 17),
-                                    child: CourseCard(
-                                        courseName: course["courseName"],
-                                        authorName: course["authorName"],
-                                        priceInRupees: course["priceInRupees"],
-                                        isBestSeller: course["isBestSeller"],
-                                        thumbnailUrl: course["thumbnailUrl"],
-                                        onBookmarkTap: () {},
-                                        onEnrollTap: () {}),
-                                  ),
-                                )
-                                .toList(),
+                      return SlideTransition(
+                        position: Tween<Offset>(
+                                begin: const Offset(1, 0), end: Offset.zero)
+                            .animate(_animationController),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Container(
+                            margin: const EdgeInsets.fromLTRB(30, 7, 30, 17),
+                            child: Row(
+                              children: courses
+                                  .map(
+                                    (course) => Padding(
+                                      padding: const EdgeInsets.only(right: 17),
+                                      child: CourseCard(
+                                          courseName: course["courseName"],
+                                          authorName: course["authorName"],
+                                          priceInRupees:
+                                              course["priceInRupees"],
+                                          isBestSeller: course["isBestSeller"],
+                                          thumbnailUrl: course["thumbnailUrl"],
+                                          onBookmarkTap: () {},
+                                          onEnrollTap: () {}),
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
                           ),
                         ),
                       );
@@ -136,21 +165,26 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              Container(
-                padding: sectionPadding,
-                width: MediaQuery.of(context).size.width,
-                height: 170,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage(
-                      'assets/images/slider.png',
+              SlideTransition(
+                position:
+                    Tween<Offset>(begin: const Offset(-1, 0), end: Offset.zero)
+                        .animate(_animationController),
+                child: Container(
+                  padding: sectionPadding,
+                  width: MediaQuery.of(context).size.width,
+                  height: 170,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage(
+                        'assets/images/slider.png',
+                      ),
                     ),
                   ),
-                ),
-                child: Text(
-                  'Join the Community',
-                  style: mediumSectionTitleStyle(Colors.white),
+                  child: Text(
+                    'Join the Community',
+                    style: mediumSectionTitleStyle(Colors.white),
+                  ),
                 ),
               )
             ],
